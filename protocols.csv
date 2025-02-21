@@ -1,0 +1,6 @@
+name,speed,efficiency,security,packet_loss
+Protocol A,4,1,8,3
+Protocol B,6,3,6,3
+Protocol C,6,10,2,3
+Protocol D,9,3,10,3
+Protocol E,6,6,10,3

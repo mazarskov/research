@@ -25,3 +25,15 @@ or run directly
 
 ### Run aggregator
 `python3 test_aggregator.py --sender sender_report.txt --receiver receiver_report.txt --output results.txt`
+
+
+## Commands to run CoAP tester(in this order)
+
+### Run receiver
+`python3 coap_receiver.py --host localhost --port 5683 --resource test --count 10000`
+
+### Run sender
+`python3 coap_sender.py --host localhost --port 5683 --resource test --count 10000 --concurrency 100`
+
+### Run aggregator
+`python3 test_aggregator.py --sender sender_report.txt --receiver receiver_report.txt --output results.txt`

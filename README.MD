@@ -1,10 +1,27 @@
-## Commands to run HTTP tester
+## Commands to run HTTP tester(in this order)
 
-### First run receiver
+### Run receiver
 `python3 http_test_receiver.py --port 8080 --count 100`
 
-### Then run sender
+### Run sender
 `python3 http_test_sender.py --url http://localhost:8080 --count 100 --concurrency 100`
 
-### Then run aggregator
-`python3 http_test_aggregator.py --sender sender_report.txt --receiver receiver_report.txt --output results.txt`
+### Run aggregator
+`python3 test_aggregator.py --sender sender_report.txt --receiver receiver_report.txt --output results.txt`
+
+
+## Commands to run MQTT tester(in this order)
+
+### Run the broker
+`net start mosquitto`
+or run directly
+`C:\Program Files\mosquitto\mosquitto.exe -v`
+
+### Run receiver
+`python3 mqtt_receiver.py --broker localhost --port 1883 --topic test/sensor --count 1000`
+
+### Run sender
+`python3 mqtt_sender.py --broker localhost --port 1883 --topic test/sensor --count 1000 --concurrency 100`
+
+### Run aggregator
+`python3 test_aggregator.py --sender sender_report.txt --receiver receiver_report.txt --output results.txt`

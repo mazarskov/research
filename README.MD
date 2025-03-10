@@ -20,10 +20,10 @@ or run directly
 `C:\Program Files\mosquitto\mosquitto.exe -v`
 
 ### Run receiver
-`python3 mqtt_receiver.py --broker localhost --port 1883 --topic test/sensor --count 1000`
+`python3 mqtt_receiver.py --broker localhost --port 1883 --topic test/sensor --count 100`
 
 ### Run sender
-`python3 mqtt_sender.py --broker localhost --port 1883 --topic test/sensor --count 1000 --concurrency 100`
+`python3 mqtt_sender.py --broker localhost --port 1883 --topic test/sensor --count 100 --concurrency 10 --rate 10 --payload-size 500`
 
 ### Run aggregator
 `python3 test_aggregator.py --sender sender_report.txt --receiver receiver_report.txt --output results.txt`

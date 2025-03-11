@@ -1,9 +1,8 @@
 import time
 import argparse
 import json
-import signal
-import sys
 import asyncio
+import signal
 from aiocoap import Context, Message, Code, resource
 
 class CoapReceiver(resource.Resource):
@@ -14,12 +13,13 @@ class CoapReceiver(resource.Resource):
         self.resource_path = resource_path
         self.message_count = message_count
         self.duration = duration
+        self.running = True
         self.received_messages = 0
         self.timestamps = []
         self.start_time = None
-        self.running = True
-        self.context = None  # Will store the server context
+        self.context = None
         self.loop = asyncio.get_event_loop()
+        self.shutdown_event = asyncio.Event()
 
     async def render_post(self, request):
         if not self.running:
@@ -35,24 +35,40 @@ class CoapReceiver(resource.Resource):
             print(f"Received {self.received_messages} messages, rate: {rate:.2f} msgs/sec")
 
         if self.message_count > 0 and self.received_messages >= self.message_count:
-            await self.stop()
+            asyncio.create_task(self.trigger_shutdown())
 
         return Message(code=Code.CONTENT, payload=b"OK")
 
-    async def stop(self):
+    async def trigger_shutdown(self):
+        self.shutdown_event.set()
+
+    async def shutdown_server(self):
+        """Graceful server shutdown"""
         if not self.running:
             return
 
-        print("Stopping receiver...")
+        print("Shutting down server gracefully...")
         self.running = False
+
+        # Generate the report
         self.generate_report()
-        
-        # Gracefully shut down the server context
+
+        # Shut down the CoAP context
         if self.context:
             await self.context.shutdown()
             self.context = None
 
+    def register_signals(self):
+        """Register signal handlers using the event loop"""
+        def signal_handler():
+            print("\nInterrupted by user. Shutting down...")
+            asyncio.create_task(self.trigger_shutdown())
+
+        self.loop.add_signal_handler(signal.SIGINT, signal_handler)
+        self.loop.add_signal_handler(signal.SIGTERM, signal_handler)
+
     def generate_report(self):
+        """Generate receiver report file"""
         time_elapsed = 0
         if len(self.timestamps) >= 2:
             first_ts = self.timestamps[0]
@@ -77,29 +93,42 @@ class CoapReceiver(resource.Resource):
 
         print(f"Receiver report generated. Total messages received: {self.received_messages}")
 
+    async def monitor_duration(self):
+        """Monitor duration limit"""
+        if self.duration <= 0:
+            return
+
+        await asyncio.sleep(self.duration)
+        if self.running:
+            print(f"Duration limit of {self.duration}s reached")
+            await self.trigger_shutdown()
+
     async def run_server(self):
-        self.start_time = time.time()
+        """Run the CoAP server"""
+        # Create and start the server
         root = resource.Site()
         root.add_resource((self.resource_path,), self)
-
+        
         self.context = await Context.create_server_context(root, bind=(self.host, self.port))
+        
+        self.start_time = time.time()
         print(f"CoAP receiver listening on coap://{self.host}:{self.port}/{self.resource_path}")
 
+        # Register signal handlers
+        self.register_signals()
+
+        # Start the duration monitor if needed
         if self.duration > 0:
-            await asyncio.sleep(self.duration)
-            await self.stop()
+            asyncio.create_task(self.monitor_duration())
 
-        # Keep the server running until stopped
-        while self.running:
-            await asyncio.sleep(0.1)
+        # Wait until shutdown is triggered
+        await self.shutdown_event.wait()
 
-def signal_handler(receiver):
-    async def async_shutdown():
-        await receiver.stop()
-    asyncio.run_coroutine_threadsafe(async_shutdown(), receiver.loop)
-    # Give some time for the shutdown to complete
-    time.sleep(1)
-    sys.exit(0)
+        # Perform cleanup
+        await self.shutdown_server()
+
+        # Stop the event loop
+        self.loop.stop()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="CoAP Receiver")
@@ -118,9 +147,5 @@ if __name__ == "__main__":
         message_count=args.count,
         duration=args.time
     )
-
-    # Pass receiver to signal handler
-    signal.signal(signal.SIGINT, lambda sig, frame: signal_handler(receiver))
-    signal.signal(signal.SIGTERM, lambda sig, frame: signal_handler(receiver))
 
     asyncio.run(receiver.run_server())

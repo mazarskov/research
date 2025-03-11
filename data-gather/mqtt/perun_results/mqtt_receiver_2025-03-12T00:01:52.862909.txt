@@ -1,0 +1,17 @@
+PERUN REPORT for 100_1
+
+App name: mqtt_receiver
+First run: 2025-03-11T23:54:09.103206
+Last run: 2025-03-12T00:01:52.862909
+
+
+RUN ID: 2025-03-12T00:01:52.862909
+
+|   Round # |   Host |   RUNTIME |    ENERGY |   POWER |   CPU_POWER |   CPU_UTIL |   DRAM_POWER |   DRAM_MEM |
+|----------:|-------:|----------:|----------:|--------:|------------:|-----------:|-------------:|-----------:|
+|         0 |    All | 105.926 s | 286.047 J | 2.737 W |     2.107 W |    3.512 % |   630.513 mW |   2.621 GB |
+|         0 |   kali | 105.926 s | 286.047 J | 2.737 W |     2.107 W |    3.512 % |   630.513 mW |   2.621 GB |
+
+Application Summary
+
+The application has been run 3 times. In total, it has used 0.000 kWh, released a total of 0.116 kgCO2e into the atmosphere, and you paid 0.00 € in electricity for it.

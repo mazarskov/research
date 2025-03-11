@@ -1,0 +1,7 @@
+{
+  "total_received": 0,
+  "timestamps": [],
+  "start_time": 0,
+  "end_time": 0,
+  "avg_rate_per_sec": 0
+}

@@ -1,0 +1,17 @@
+PERUN REPORT
+
+App name: ui
+First run: 2025-03-09T14:42:42.548899
+Last run: 2025-03-09T14:42:42.548899
+
+
+RUN ID: 2025-03-09T14:42:42.548899
+
+|   Round # |   Host |   RUNTIME |    ENERGY |   POWER |   CPU_POWER |   CPU_UTIL |   DRAM_POWER |   DRAM_MEM |
+|----------:|-------:|----------:|----------:|--------:|------------:|-----------:|-------------:|-----------:|
+|         0 |    All | 127.744 s | 749.049 J | 5.869 W |     4.801 W |   11.103 % |      1.068 W |   1.717 GB |
+|         0 |   kali | 127.744 s | 749.049 J | 5.869 W |     4.801 W |   11.103 % |      1.068 W |   1.717 GB |
+
+Application Summary
+
+The application has been run 1 times. In total, it has used 0.000 kWh, released a total of 0.087 kgCO2e into the atmosphere, and you paid 0.00 € in electricity for it.

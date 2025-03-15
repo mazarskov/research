@@ -1,0 +1,17 @@
+PERUN REPORT1000_0conc100
+
+App name: coap_sender
+First run: 2025-03-15T20:47:42.385144
+Last run: 2025-03-15T21:03:09.232182
+
+
+RUN ID: 2025-03-15T21:03:09.232182
+
+|   Round # |   Host |   RUNTIME |   ENERGY |   POWER |   CPU_POWER |   CPU_UTIL |   DRAM_POWER |   DRAM_MEM |
+|----------:|-------:|----------:|---------:|--------:|------------:|-----------:|-------------:|-----------:|
+|         0 |    All |   1.973 s | 16.654 J | 8.361 W |     7.615 W |   29.733 % |   746.711 mW |   2.033 GB |
+|         0 |   kali |   1.973 s | 16.654 J | 8.361 W |     7.615 W |   29.733 % |   746.711 mW |   2.033 GB |
+
+Application Summary
+
+The application has been run 5 times. In total, it has used 0.001 kWh, released a total of 0.293 kgCO2e into the atmosphere, and you paid 0.00 € in electricity for it.

@@ -1,0 +1,20 @@
+HTTP PROTOCOL TEST REPORT
+==============================
+Total Sent: 10000
+Total Received: 10000
+Packet Loss: 0.00%
+Transfer Speed: 520.70 messages/second
+
+LATENCY STATISTICS:
+Average Latency: 1.54 ms
+Minimum Latency: 0.96 ms
+Maximum Latency: 73.10 ms
+Median Latency: 1.55 ms
+
+Sent Data:
+First message timestamp: 2025-03-15 21:04:16.267
+Last message timestamp: 2025-03-15 21:04:35.472
+
+Received Data:
+First message timestamp: 2025-03-15 21:04:16.273
+Last message timestamp: 2025-03-15 21:04:35.473

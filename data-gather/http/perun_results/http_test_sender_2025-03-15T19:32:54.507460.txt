@@ -1,0 +1,17 @@
+PERUN REPORT
+
+App name: http_test_sender
+First run: 2025-03-15T19:25:03.901844
+Last run: 2025-03-15T19:32:54.507460
+
+
+RUN ID: 2025-03-15T19:32:54.507460
+
+|   Round # |   Host |   RUNTIME |    ENERGY |    POWER |   CPU_POWER |   CPU_UTIL |   DRAM_POWER |   DRAM_MEM |
+|----------:|-------:|----------:|----------:|---------:|------------:|-----------:|-------------:|-----------:|
+|         0 |    All |  52.802 s | 647.952 J | 12.265 W |    11.270 W |   47.533 % |   995.788 mW |   2.253 GB |
+|         0 |   kali |  52.802 s | 647.952 J | 12.265 W |    11.270 W |   47.533 % |   995.788 mW |   2.253 GB |
+
+Application Summary
+
+The application has been run 5 times. In total, it has used 0.001 kWh, released a total of 0.211 kgCO2e into the atmosphere, and you paid 0.00 € in electricity for it.

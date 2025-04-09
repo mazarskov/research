@@ -25,4 +25,9 @@ kill "$tshark_pid"
 
 python test_aggregator.py --sender sender_report.txt --receiver receiver_report.txt --output "${output}.txt"
 
-echo "Wiresark file saved"
+sleep 1
+
+rm sender_report.txt
+rm receiver_report.txt
+echo "Wiresark file saved as ${output}.pcap"
+echo "Report saved as ${output}.txt"

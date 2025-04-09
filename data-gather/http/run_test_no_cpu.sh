@@ -11,10 +11,10 @@ echo "Starting packet capture..."
 tshark -i lo -w "$pcap_file" &
 tshark_pid=$!
 
-perun monitor http_test_receiver.py --port 8080 --count "$count" &
+python http_test_receiver.py --port 8080 --count "$count" &
 receive_pid=$!
 sleep 5
-perun monitor http_test_sender.py --url http://localhost:8080 --rate "$rate" --payload-size 64 --concurrency "$conc" --count "$count" &
+python http_test_sender.py --url http://localhost:8080 --rate "$rate" --payload-size 64 --concurrency "$conc" --count "$count" &
 send_pid=$!
 
 wait "$receive_pid"

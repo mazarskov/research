@@ -11,10 +11,10 @@ echo "Starting packet capture..."
 tshark -i lo -w "$pcap_file" &
 tshark_pid=$!
 
-python mqtt_receiver.py --broker localhost --port 1883 --topic test/sensor --count "$count" &
+python data-gather/mqtt/mqtt_receiver.py --broker localhost --port 1883 --topic test/sensor --count "$count" &
 receive_pid=$!
 sleep 5
-python mqtt_sender.py --broker localhost --port 1883 --topic test/sensor --rate "$rate" --payload-size 64 --concurrency "$conc" --count "$count" &
+python data-gather/mqtt/mqtt_sender.py --broker localhost --port 1883 --topic test/sensor --rate "$rate" --payload-size 64 --concurrency "$conc" --count "$count" &
 send_pid=$!
 
 wait "$receive_pid"
@@ -23,7 +23,7 @@ wait "$send_pid"
 echo "Stopping packet capture..."
 kill "$tshark_pid"
 
-python test_aggregator.py --sender sender_report.txt --receiver receiver_report.txt --output "${output}.txt"
+python data-gather/mqtt/test_aggregator.py --sender sender_report.txt --receiver receiver_report.txt --output "${output}.txt"
 
 sleep 1
 

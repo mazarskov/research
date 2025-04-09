@@ -11,10 +11,10 @@ echo "Starting packet capture..."
 tshark -i lo -w "$pcap_file" &
 tshark_pid=$!
 
-python http_test_receiver.py --port 8080 --count "$count" &
+python data-gather/http/http_test_receiver.py --port 8080 --count "$count" &
 receive_pid=$!
 sleep 5
-python http_test_sender.py --url http://localhost:8080 --rate "$rate" --payload-size 64 --concurrency "$conc" --count "$count" &
+python data-gather/http/http_test_sender.py --url http://localhost:8080 --rate "$rate" --payload-size 64 --concurrency "$conc" --count "$count" &
 send_pid=$!
 
 wait "$receive_pid"
@@ -23,7 +23,7 @@ wait "$send_pid"
 echo "Stopping packet capture..."
 kill "$tshark_pid"
 
-python test_aggregator.py --sender sender_report.txt --receiver receiver_report.txt --output "${output}.txt"
+python data-gather/http/test_aggregator.py --sender sender_report.txt --receiver receiver_report.txt --output "${output}.txt"
 
 sleep 1
 
